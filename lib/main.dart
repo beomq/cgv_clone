@@ -1,3 +1,4 @@
+import 'package:cgv_clone/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,12 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CGV Clone',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
       debugShowCheckedModeBanner: false,
-      home: ,
+      home: HomeScreen(),
     );
   }
 }
