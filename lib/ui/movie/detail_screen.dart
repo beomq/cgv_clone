@@ -1,5 +1,7 @@
 import 'package:cgv_clone/data/model/movie.dart';
+import 'package:cgv_clone/data/review_data.dart';
 import 'package:cgv_clone/ui/movie/review_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -19,6 +21,8 @@ class DetailScreen extends StatelessWidget {
           thisMovie.title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black87),
       ),
       body: ListView(
         children: [
@@ -110,6 +114,53 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
           ),
+          StreamBuilder<QuerySnapshot>(
+              stream: getReviews(thisMovie.title),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) return const Text('loadings');
+                return Column(
+                  children: snapshot.data!.docs
+                      .map<Widget>((DocumentSnapshot document) {
+                    return ListTile(
+                      leading: const CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        child: Icon(
+                          Icons.person,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            document['evaluation'],
+                            style: const TextStyle(color: Colors.brown),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                document['name'],
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              const Spacer(),
+                              Text(
+                                (document['registration_date'])
+                                    .toDate()
+                                    .toString()
+                                    .split('.')
+                                    .first,
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      subtitle: Text(document['comment']),
+                    );
+                  }).toList(),
+                );
+              })
         ],
       ),
     );

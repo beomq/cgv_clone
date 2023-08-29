@@ -1,4 +1,5 @@
 import 'package:cgv_clone/data/model/movie.dart';
+import 'package:cgv_clone/data/review_data.dart';
 import 'package:flutter/material.dart';
 
 class ReviewScreen extends StatefulWidget {
@@ -138,6 +139,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                 ],
                               ),
                             );
+                          } else {
+                            addReview(
+                                thisMovie.title,
+                                reviewIdController.text,
+                                reviewTextController.text,
+                                choices[choiceIndex]);
+                            Navigator.pop(context);
                           }
                         },
                         child: const Text(
