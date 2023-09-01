@@ -1,7 +1,8 @@
 import 'package:cgv_clone/data/model/movie.dart';
+import 'package:cgv_clone/ui/reserve/reserve_screen.dart';
 import 'package:flutter/material.dart';
 
-Widget movieRankPoster(Movie movie) {
+Widget movieRankPoster(BuildContext context, Movie movie) {
   return Padding(
     padding: const EdgeInsets.all(12.0),
     child: Column(
@@ -47,6 +48,31 @@ Widget movieRankPoster(Movie movie) {
           '관람객 평점: ${movie.rating}',
           style: const TextStyle(color: Colors.grey, fontSize: 10),
         ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ReserveScreen(
+                  movie: movie,
+                ),
+              ),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+              primary: Colors.white,
+              onPrimary: Colors.black,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+              minimumSize: const Size(100, 15),
+              side: const BorderSide(color: Colors.black)),
+          child: const Text(
+            '지금예매',
+            style: TextStyle(color: Colors.black, fontSize: 10),
+          ),
+        )
       ],
     ),
   );

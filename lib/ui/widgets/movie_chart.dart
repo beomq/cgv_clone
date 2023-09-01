@@ -9,7 +9,7 @@ class MovieChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 280,
+      height: 310,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: List.generate(
@@ -24,6 +24,7 @@ class MovieChart extends StatelessWidget {
               );
             },
             child: movieRankPoster(
+              context,
               movieList[index],
             ),
           ),
